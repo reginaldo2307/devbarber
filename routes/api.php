@@ -46,6 +46,8 @@ Route::post('/barber/{id}/appointment', [BarberController::class, 'setAppointmen
 
 Route::get('/search', [BarberController::class, 'search']);
 
+Route::get();
+
 
 
 
