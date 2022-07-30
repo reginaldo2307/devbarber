@@ -141,7 +141,8 @@ class BarberController extends Controller
                 $city = $res['results'][0]['formatted_address'];
             }
         } else {
-            alert("Nenhum barbeiro encontrado");
+            $array['error'] = 'Nenhum barbeiro encontrado';
+            return $array;
         }
 
         $barbers = Barber::select(Barber::raw('*, SQRT(
