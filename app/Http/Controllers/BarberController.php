@@ -139,9 +139,12 @@ class BarberController extends Controller
                 $city = $res['results'][0]['formatted_address'];
             }
         }else {
+            /*
             $lat = '-3.7234922';
             $lng = '-38.5795397';
             $city = 'Fortaleza';
+            */
+            alert('Barbeiro não encontrado');
         }
         
         $barbers = Barber::select(Barber::raw('*, SQRT(
