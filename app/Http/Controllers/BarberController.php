@@ -98,7 +98,7 @@ class BarberController extends Controller
         return $array;
     }
     */
-    /*
+    
     private function searchGeo($address) {
         $key = env('MAPS_GEO', null);
 
@@ -143,8 +143,6 @@ class BarberController extends Controller
             $lat = '-3.7234922';
             $lng = '-38.5795397';
             $city = 'Fortaleza';
-            
-            alert('Barbeiro não encontrado');
         }
         
         $barbers = Barber::select(Barber::raw('*, SQRT(
