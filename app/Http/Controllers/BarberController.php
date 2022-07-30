@@ -114,6 +114,64 @@ class BarberController extends Controller
         return json_decode($res, true);
     }
 
+
+
+    public function list(Request $request) {
+        $array = ['error' => ''];
+
+        $lat = $request->input('lat');
+        $lng = $request->input('lng');
+        $city = $request->input('city');
+        $offset = $request->input('offset');
+        if(!$offset) {
+            $offset = 0;
+        }
+
+        if(!empty($city)) {
+            $res = $this->searchGeo($city);
+
+            if(count($res['results']) > 0) {
+                $lat = $res['results'][0]['geometry']['location']['lat'];
+                $lng = $res['results'][0]['geometry']['location']['lng'];
+            }
+        } elseif(!empty($lat) && !empty($lng)) {
+            $res = $this->searchGeo($lat.','.$lng);
+
+            if(count($res['results']) > 0) {
+                $city = $res['results'][0]['formatted_address'];
+            }
+        } else {
+            $lat = '-23.5630907';
+            $lng = '-46.6682795';
+            $city = 'São Paulo';
+        }
+
+        $barbers = Barber::select(Barber::raw('*, SQRT(
+            POW(69.1 * (latitude - '.$lat.'), 2) +
+            POW(69.1 * ('.$lng.' - longitude) * COS(latitude / 57.3), 2)) AS distance'))
+            ->havingRaw('distance < ?', [10])
+            ->orderBy('distance', 'ASC')
+            ->offset($offset)
+            ->limit(5)
+            ->get();
+
+        foreach($barbers as $bkey => $bvalue) {
+            $barbers[$bkey]['avatar'] = url('media/avatars/'.$barbers[$bkey]['avatar']);
+        }
+
+        $array['data'] = $barbers;
+        $array['loc'] = 'São Paulo';
+
+        return $array;
+    }
+
+
+
+
+
+
+    /*
+
     public function list(Request $request) {
         $array = ['error' => ''];
 
@@ -163,6 +221,9 @@ class BarberController extends Controller
         
         return $array;
     }
+
+
+    */
     
     public function one($id) {
         $array = ['error' => ''];
