@@ -115,7 +115,7 @@ class BarberController extends Controller
     }
 
 
-
+/*
     public function list(Request $request) {
         $array = ['error' => ''];
 
@@ -166,10 +166,10 @@ class BarberController extends Controller
 
 
 
+*/
 
 
 
-    /*
 
     public function list(Request $request) {
         $array = ['error' => ''];
@@ -197,9 +197,9 @@ class BarberController extends Controller
             }
         }else {
             
-            $lat = '-3.7234922';
-            $lng = '-38.5795397';
-            $city = 'Fortaleza';
+            $lat = '-23.5630907';
+            $lng = '-46.6682795';
+            $city = 'São Paulo';
         }
         
         $barbers = Barber::select(Barber::raw('*, SQRT(
@@ -222,7 +222,7 @@ class BarberController extends Controller
     }
 
 
-    */
+
     
     public function one($id) {
         $array = ['error' => ''];
