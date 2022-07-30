@@ -216,7 +216,7 @@ class BarberController extends Controller
         }
 
         $array['data'] = $barbers;
-        $array['loc'] = 'Fortaleza';
+        $array['loc'] = 'São Paulo';
         
         return $array;
     }
