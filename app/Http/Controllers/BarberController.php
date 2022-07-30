@@ -98,7 +98,7 @@ class BarberController extends Controller
         return $array;
     }
     */
-
+    /*
     private function searchGeo($address) {
         $key = env('MAPS_GEO', null);
 
@@ -139,11 +139,11 @@ class BarberController extends Controller
                 $city = $res['results'][0]['formatted_address'];
             }
         }else {
-            /*
+            
             $lat = '-3.7234922';
             $lng = '-38.5795397';
             $city = 'Fortaleza';
-            */
+            
             alert('Barbeiro não encontrado');
         }
         
@@ -165,7 +165,7 @@ class BarberController extends Controller
         
         return $array;
     }
-
+    */
     public function one($id) {
         $array = ['error' => ''];
         
