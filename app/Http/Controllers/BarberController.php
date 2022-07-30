@@ -205,7 +205,6 @@ class BarberController extends Controller
         $barbers = Barber::select(Barber::raw('*, SQRT(
             POW(69.1 * (latitude - '.$lat.'), 2) +
             POW(69.1 * ('.$lng.' - longitude) * COS(latitude / 57.3), 2)) AS distance'))
-            ->havingRaw('distance < ?', [10])
             ->orderBy('distance', 'ASC')
             ->offset($offset)
             ->limit(5)
