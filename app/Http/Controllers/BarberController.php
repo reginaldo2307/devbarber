@@ -163,7 +163,7 @@ class BarberController extends Controller
         
         return $array;
     }
-    */
+    
     public function one($id) {
         $array = ['error' => ''];
         
