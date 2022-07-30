@@ -140,10 +140,12 @@ class BarberController extends Controller
             if(count($res['results']) > 0) {
                 $city = $res['results'][0]['formatted_address'];
             }
-        } else {
+        } else {/*
             $lat = '-23.5630907';
             $lng = '-46.6682795';
             $city = 'São Paulo';
+            */
+            alert('Nenhum barbeiro encontrado');
         }
 
         $barbers = Barber::select(Barber::raw('*, SQRT(
