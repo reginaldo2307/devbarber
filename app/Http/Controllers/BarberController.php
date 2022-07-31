@@ -22,80 +22,7 @@ class BarberController extends Controller
         $this->loggedUser = auth()->user();
     }
 
-    /*
-    public function createRandom() {
-        $array = ['error' => ''];
-        
-        for($q=0;$q<15;$q++) {
-            $names = ['Bonieky', 'Reginaldo', 'Paulo', 'Letícia', 'Pedro', 'Gabriel'];
-            $lastnames = ['Silva', 'Lacerda', 'Diniz', 'Almeida', 'Alvaro', 'Sousa'];
-
-            $servicos = ['Corte', 'Pintura', 'Aparação', 'Enfeite'];
-            $servicos2 = ['Cabelo', 'Unha', 'Pernas', 'Sobrancelhas'];
-
-            $depos = ['Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia',
-                      'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia',
-                      'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia',
-                      'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia',
-                      'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia'
-                    ];
-            
-            $newBarber = new Barber();
-            $newBarber->name = $names[rand(0, count($names)-1)].' '.$lastnames[rand(0, count($lastnames)-1)];
-            $newBarber->avatar = rand(1, 4).'.png';
-            $newBarber->stars = rand(2, 4).'.'.rand(0, 9);
-            $newBarber->latitude = '-23.5'.rand(0,9).'30907';
-            $newBarber->longitude = '-46.6'.rand(0,9).'82795';
-            $newBarber->save();
-
-            $ns = rand(3, 6);
-
-            for($w=0;$w<4;$w++) {
-                $newBarberPhoto = new BarberPhotos();
-                $newBarberPhoto->id_barber = $newBarber->id;
-                $newBarberPhoto->url = rand(1, 5).'.png';
-                $newBarberPhoto->save();
-            }
-
-            for($w=0;$w<$ns;$w++) {
-                $newBarberService = new BarberServices();
-                $newBarberService->id_barber = $newBarber->id;
-                $newBarberService->name = $servicos[rand(0, count($servicos)-1)].' de '.$servicos2[rand(0, count($servicos)-1)];
-                $newBarberService->price = rand(1, 99).'.'.rand(0, 100);
-                $newBarberService->save();
-            }
-
-            for($w=0;$w<3;$w++) {
-                $newBarberTestimonial = new BarberTestimonial();
-                $newBarberTestimonial->id_barber = $newBarber->id;
-                $newBarberTestimonial->name = $names[rand(0, count($servicos)-1)];
-                $newBarberTestimonial->rate = rand(2, 4).'.'.rand(0, 99);
-                $newBarberTestimonial->body = $depos[rand(0, count($depos)-1)];
-                $newBarberTestimonial->save();
-            }
-
-            for($e=0;$e<4;$e++) {
-                $rAdd = rand(7, 10);
-                $hours = [];
-                for($r=0;$r<8;$r++) {
-                    $time = $r + $rAdd;
-                    if($time < 10) {
-                        $time = '0'.$time;
-                    }
-                    $hours[] = $time.':00';
-                }
-                $newBarberAvail = new BarberAvailability();
-                $newBarberAvail->id_barber = $newBarber->id;
-                $newBarberAvail->weekday = $e;
-                $newBarberAvail->hours = implode(',', $hours);
-                $newBarberAvail->save();
-            }
-
-        }
-
-        return $array;
-    }
-    */
+    
     
     private function searchGeo($address) {
         $key = env('MAPS_GEO', null);
@@ -111,60 +38,6 @@ class BarberController extends Controller
 
         return json_decode($res, true);
     }
-
-
-/*
-    public function list(Request $request) {
-        $array = ['error' => ''];
-
-        $lat = $request->input('lat');
-        $lng = $request->input('lng');
-        $city = $request->input('city');
-        $offset = $request->input('offset');
-        if(!$offset) {
-            $offset = 0;
-        }
-
-        if(!empty($city)) {
-            $res = $this->searchGeo($city);
-
-            if(count($res['results']) > 0) {
-                $lat = $res['results'][0]['geometry']['location']['lat'];
-                $lng = $res['results'][0]['geometry']['location']['lng'];
-            }
-        } elseif(!empty($lat) && !empty($lng)) {
-            $res = $this->searchGeo($lat.','.$lng);
-
-            if(count($res['results']) > 0) {
-                $city = $res['results'][0]['formatted_address'];
-            }
-        } else {
-            $array['error'] = 'Nenhum barbeiro encontrado';
-            return $array;
-        }
-
-        $barbers = Barber::select(Barber::raw('*, SQRT(
-            POW(69.1 * (latitude - '.$lat.'), 2) +
-            POW(69.1 * ('.$lng.' - longitude) * COS(latitude / 57.3), 2)) AS distance'))
-            ->havingRaw('distance < ?', [10])
-            ->orderBy('distance', 'ASC')
-            ->offset($offset)
-            ->limit(5)
-            ->get();
-
-        foreach($barbers as $bkey => $bvalue) {
-            $barbers[$bkey]['avatar'] = url('media/avatars/'.$barbers[$bkey]['avatar']);
-        }
-
-        $array['data'] = $barbers;
-        $array['loc'] = 'São Paulo';
-
-        return $array;
-    }
-
-
-
-*/
 
 
 
@@ -195,9 +68,9 @@ class BarberController extends Controller
             }
         }else {
             
-            $lat = '-23.5630907';
-            $lng = '-46.6682795';
-            $city = 'São Paulo';
+            $lat = '-3.7153087';
+            $lng = '-38.5766496';
+            $city = 'Fortaleza';
         }
         
         $barbers = Barber::select(Barber::raw('*, SQRT(
@@ -213,7 +86,7 @@ class BarberController extends Controller
         }
 
         $array['data'] = $barbers;
-        $array['loc'] = 'São Paulo';
+        $array['loc'] = 'Fortaleza';
         
         return $array;
     }
