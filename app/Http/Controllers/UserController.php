@@ -33,7 +33,7 @@ class UserController extends Controller
         return $array;
     }
 
-    public function toggleFavorite(Request $request) {
+    public function addFavorite(Request $request) {
         $array = ['error'=>''];
 
         $id_barber = $request->input('barber');
