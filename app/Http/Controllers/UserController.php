@@ -12,7 +12,7 @@ use App\Models\User;
 use App\Models\UserAppointment;
 use App\Models\UserFavorite;
 use App\Models\Barber;
-use App\models\BarberServices;
+use App\Models\BarberServices;
 
 class UserController extends Controller
 {
