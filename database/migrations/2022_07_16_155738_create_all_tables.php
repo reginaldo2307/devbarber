@@ -53,7 +53,7 @@ return new class extends Migration
             $table->id();
             $table->integer('id_barber');
             $table->string('name');
-            $table->float('price');
+            $table->float('price')->number_format(2, ',', '.');
         });
         Schema::create('barbertestimonials', function (Blueprint $table) {
             $table->id();
