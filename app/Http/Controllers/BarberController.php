@@ -194,7 +194,7 @@ class BarberController extends Controller
         $service = $request->input('service');
         $year = intval($request->input('year'));
         $month = intval($request->input('month'));
-        $day = intval($request->input('day'));
+        $day = intval($request->input('day') + 1);
         $hour = intval($request->input('hour'));
 
         $month = ($month < 10) ? '0'.$month : $month;
